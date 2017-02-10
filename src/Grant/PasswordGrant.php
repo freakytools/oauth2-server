@@ -76,6 +76,11 @@ class PasswordGrant extends AbstractGrant
      */
     protected function validateUser(ServerRequestInterface $request, ClientEntityInterface $client)
     {
+        $origin = $this->getRequestParameter('HTTP_ORIGIN', $request);
+        if (is_null($origin)) {
+            throw OAuthServerException::invalidRequest('origin');
+        }
+
         $username = $this->getRequestParameter('username', $request);
         if (is_null($username)) {
             throw OAuthServerException::invalidRequest('username');
@@ -89,6 +94,7 @@ class PasswordGrant extends AbstractGrant
         $user = $this->userRepository->getUserEntityByUserCredentials(
             $username,
             $password,
+            $origin,
             $this->getIdentifier(),
             $client
         );

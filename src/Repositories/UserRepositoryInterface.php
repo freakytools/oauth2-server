@@ -19,6 +19,7 @@ interface UserRepositoryInterface extends RepositoryInterface
      *
      * @param string                $username
      * @param string                $password
+     * @param string                $origin
      * @param string                $grantType    The grant type used
      * @param ClientEntityInterface $clientEntity
      *
@@ -27,6 +28,7 @@ interface UserRepositoryInterface extends RepositoryInterface
     public function getUserEntityByUserCredentials(
         $username,
         $password,
+        $origin,
         $grantType,
         ClientEntityInterface $clientEntity
     );
